@@ -2,7 +2,7 @@ import React from "react"
 import Container from "@/components/layouts/Container"
 import { BsArrowRight } from "react-icons/bs"
 import AccentButton from "@/components/shared/AccentButton"
-import Slider from "./Slieder/Slider"
+import Slider from "./Slider/Slider"
 
 const Banner = () => {
   return (
