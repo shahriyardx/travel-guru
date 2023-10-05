@@ -1,17 +1,19 @@
-import React, { useRef, useState } from "react"
+import React, { RefObject, useContext, useRef, useState } from "react"
 import Slider, { Settings } from "react-slick"
+import Slide from "./ImageSlide"
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
+import { HeaderContext } from "../HeaderContext"
+import { slideData } from "@/utils/data"
+
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import Slide from "./Slide"
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 
-const BannerSlider = () => {
-  const slideData = [
-    { image: "/images/coxs-bazar.png", text: "Cox's Bazar" },
-    { image: "/images/Sajek.png", text: "Sajek" },
-    { image: "/images/Sreemongol.png", text: "Sreemangal" },
-    { image: "/images/Sundorbon.png", text: "Sundarban" },
-  ]
+const BannerSlider = ({
+  sliderRef: textSliderRef,
+}: {
+  sliderRef: RefObject<Slider | undefined> | undefined
+}) => {
+  const context = useContext(HeaderContext)
   const sliderRef = useRef<Slider>(null)
   const [activeSlide, setActiveSlide] = useState(0)
 
@@ -22,31 +24,44 @@ const BannerSlider = () => {
     slidesToScroll: 1,
     draggable: true,
     arrows: false,
-    afterChange: (currentSlide: number) => setActiveSlide(currentSlide),
+    afterChange: (currentSlide: number) => {
+      setActiveSlide(currentSlide)
+    },
+    beforeChange: (_curr, next) => {
+      context?.setBg(slideData[next].image)
+    },
   }
 
   return (
     <div>
-      <Slider {...settings} ref={sliderRef}>
+      <Slider className="images" {...settings} ref={sliderRef}>
         {slideData.map((data, index) => (
           <Slide
             key={index}
             image={data.image}
-            text={data.text}
+            text={data.title}
             className={activeSlide === index ? "border-yellow-400" : ""}
+            sliderRef={sliderRef}
+            index={index}
           />
         ))}
       </Slider>
 
       <div className="flex items-center gap-3 mt-5">
         <button
-          onClick={() => sliderRef.current?.slickPrev()}
+          onClick={() => {
+            sliderRef.current?.slickPrev()
+            textSliderRef?.current?.slickPrev()
+          }}
           className="w-12 aspect-square bg-white grid place-items-center text-3xl rounded-full"
         >
           <BiChevronLeft />
         </button>
         <button
-          onClick={() => sliderRef.current?.slickNext()}
+          onClick={() => {
+            sliderRef.current?.slickNext()
+            textSliderRef?.current?.slickNext()
+          }}
           className="w-12 aspect-square bg-white grid place-items-center text-3xl rounded-full"
         >
           <BiChevronRight />

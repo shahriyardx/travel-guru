@@ -1,10 +1,13 @@
 import React from "react"
-import Header from "@/components/home/Header/Index"
+import Header from "@/components/shared/Header/Index"
+import { HeaderProvider } from "../shared/Header/HeaderContext"
 
 const Main = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
-      <Header />
+      <HeaderProvider>
+        <Header />
+      </HeaderProvider>
       {children}
     </div>
   )

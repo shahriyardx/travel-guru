@@ -1,22 +1,28 @@
 import cn from "@/utils/tailwind"
 import Image from "next/image"
-import React, { HTMLAttributes } from "react"
+import React, { HTMLAttributes, RefObject } from "react"
+import Slider from "react-slick"
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   image: string
   text: string
+  sliderRef: RefObject<Slider>
+  index: number
 }
 
-const Slide = ({ image, text, className }: Props) => {
+const Slide = ({ image, text, className, sliderRef, index }: Props) => {
   return (
-    <div className="px-3 relative">
+    <div
+      className="px-3 relative"
+      onClick={() => sliderRef.current?.slickGoTo(index)}
+    >
       <div
         className={cn(
           `
           w-full aspect-[1.3/2] border-4 
           rounded-2xl overflow-hidden border-transparent 
           shadow-xl transition-all`,
-          className
+          className,
         )}
       >
         <Image

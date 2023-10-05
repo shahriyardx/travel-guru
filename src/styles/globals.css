@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.slick-list {
+.slick-slider.images .slick-list {
   padding-left: calc(100% / 5.2) !important;
 }
