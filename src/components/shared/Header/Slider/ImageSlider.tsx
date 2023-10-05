@@ -24,9 +24,15 @@ const BannerSlider = ({
     slidesToScroll: 1,
     draggable: true,
     arrows: false,
-    beforeChange: (_curr, next) => {
+    beforeChange: (curr, next) => {
       setActiveSlide(next)
       context?.setBg(slideData[next].image)
+
+      if (curr == slideData.length - 1 && next == 0) {
+        textSliderRef?.current?.slickNext()
+      } else {
+        textSliderRef?.current?.slickGoTo(next)
+      }
     },
   }
 
@@ -47,19 +53,13 @@ const BannerSlider = ({
 
       <div className="flex items-center gap-3 mt-5">
         <button
-          onClick={() => {
-            sliderRef.current?.slickPrev()
-            textSliderRef?.current?.slickPrev()
-          }}
+          onClick={() => sliderRef.current?.slickPrev()}
           className="w-12 aspect-square bg-white grid place-items-center text-3xl rounded-full"
         >
           <BiChevronLeft />
         </button>
         <button
-          onClick={() => {
-            sliderRef.current?.slickNext()
-            textSliderRef?.current?.slickNext()
-          }}
+          onClick={() => sliderRef.current?.slickNext()}
           className="w-12 aspect-square bg-white grid place-items-center text-3xl rounded-full"
         >
           <BiChevronRight />
