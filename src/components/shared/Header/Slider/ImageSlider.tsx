@@ -24,10 +24,8 @@ const BannerSlider = ({
     slidesToScroll: 1,
     draggable: true,
     arrows: false,
-    afterChange: (currentSlide: number) => {
-      setActiveSlide(currentSlide)
-    },
     beforeChange: (_curr, next) => {
+      setActiveSlide(next)
       context?.setBg(slideData[next].image)
     },
   }
