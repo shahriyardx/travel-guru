@@ -1,5 +1,5 @@
-import cn from "@/utils/tailwind"
 import React, { ButtonHTMLAttributes } from "react"
+import cn from "@/utils/tailwind"
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement>
 
